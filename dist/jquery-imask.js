@@ -5,7 +5,7 @@
  * Authors: Mark Kahn
  *          Fabio Zendhi Nagao (http://zend.lojcomm.com.br)
  *
- * Date: Wed Aug 24 10:50:49 2011 -0700
+ * Date: Wed Aug 24 10:51:08 2011 -0700
  */
 (function($){
 	var $chk = function(obj){
@@ -546,8 +546,18 @@
 	};
 
 	$.fn.iMask = function(options){
-		this.each(function(){
-			new iMask($(this), options);
-		});
+        if (options) {
+            this.each(function(){
+                var $this = $(this);
+                $this.data('iMask', new iMask($this, options));
+            });
+        } else {
+            var masks = [];
+            this.each(function(){
+                var $this = $(this);
+                masks.push($this.data('iMask'));
+            });
+            return masks;
+        }
 	};
 })(jQuery);

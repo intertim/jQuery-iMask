@@ -537,8 +537,18 @@
 	};
 
 	$.fn.iMask = function(options){
-		this.each(function(){
-			new iMask($(this), options);
-		});
+        if (options) {
+            this.each(function(){
+                var $this = $(this);
+                $this.data('iMask', new iMask($this, options));
+            });
+        } else {
+            var masks = [];
+            this.each(function(){
+                var $this = $(this);
+                masks.push($this.data('iMask'));
+            });
+            return masks;
+        }
 	};
 })(jQuery);
